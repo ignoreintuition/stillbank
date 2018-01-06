@@ -32,7 +32,8 @@ export default {
     };
   },
   created() {
-    $.get('http://localhost:3000/acct/?sid=1', (d) => {
+    const url = `http://localhost:3000/acct/?sid=${this.$route.params.id}`;
+    $.get(url, (d) => {
       this.data = d;
     });
   },

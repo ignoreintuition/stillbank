@@ -8,3 +8,16 @@
   </div>
 
 </template>
+
+<script>
+export default {
+  name: 'Account',
+  data() {
+    return {
+      data: {
+        auth: false,
+      },
+    };
+  },
+};
+</script>
