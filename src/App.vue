@@ -13,21 +13,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li v-if="this.$route.path == '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> HOME </router-link>
                 </li>
-                <li class="nav-item">
+                <li v-if="this.$route.path != '/' && this.$route.name != 'Admin'" class="nav-item">
                   <router-link :to="{ name: 'Transaction', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
                 </li>
-                <li class="nav-item">
+                <li v-if="this.$route.path != '/' && this.$route.name != 'Admin'" class="nav-item">
                   <router-link :to="{ name: 'Account', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
                 </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'AdminAccount', params: { id: $route.params.id }}" class="nav-link"> ADMIN ACCOUNT </router-link>
+                <li v-if="this.$route.name == 'Admin'" class="nav-item">
+                  <router-link :to="{ name: 'Admin', params: { id: $route.params.id }}" class="nav-link"> ADMIN </router-link>
                 </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'AdminTransaction', params: { id: $route.params.id }}" class="nav-link"> ADMIN TRANSACTION </router-link>
+                <li v-if="this.$route.path != '/'" class="nav-item">
+                  <router-link :to="{ name: 'Home' }" class="nav-link"> LOGOUT </router-link>
                 </li>
+
               </ul>
             </div>
           </nav>
@@ -101,4 +102,15 @@ h1, h2, h3, h4, h5 {
   color: #000000;
 }
 
+.btn-primary, .btn-primary:visited  {
+  background-color: #87BBA2;
+  border-color: #FFFFFF;
+  color: #000000;
+}
+
+.btn-primary:active, .btn-primary:hover {
+  background-color: #5D737E;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
 </style>

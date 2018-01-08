@@ -3,8 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Transaction from '@/components/Transaction';
 import Account from '@/components/Account';
-import AdminAccount from '@/components/Admin-Account';
-import AdminTransaction from '@/components/Admin-Transaction';
+import Admin from '@/components/Admin';
 
 
 Vue.use(Router);
@@ -13,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home/',
+      name: 'Home',
       component: Home,
     },
     {
@@ -27,14 +26,9 @@ export default new Router({
       component: Account,
     },
     {
-      path: '/Admin/Account/',
-      name: 'AdminAccount',
-      component: AdminAccount,
-    },
-    {
-      path: '/Admin/Transaction',
-      name: 'AdminTransaction',
-      component: AdminTransaction,
+      path: '/Admin/:id',
+      name: 'Admin',
+      component: Admin,
     },
   ],
 });
