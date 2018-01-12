@@ -40,13 +40,6 @@ export default {
   data() {
     return {
       data: {
-        primaryAccountID: null,
-        subAccountID: null,
-        name: null,
-        startDate: null,
-        endDate: null,
-        startBal: null,
-        endBal: null,
         transactions: [],
       },
     };
@@ -54,7 +47,7 @@ export default {
   created() {
     const url = `http://localhost:3000/trans/?sid=${this.$route.params.id}`;
     $.get(url, (d) => {
-      this.data = d;
+      this.data.transactions = d;
     });
   },
 };
