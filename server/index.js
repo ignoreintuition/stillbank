@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const MongoClient = require('mongodb').MongoClient
 
-//const dbuser = 'sb_user';
-//const dbpassword = 's%3BXjAL%7B3E%5B8!Nn';
 var db;
 
 app.use(bodyParser.urlencoded({
@@ -19,7 +17,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-//MongoClient.connect('mongodb://' + dbuser + ':' + dbpassword + '@ds013966.mlab.com:13966/rwd-test', {
 MongoClient.connect('mongodb://localhost', {
   uri_decode_auth: true,
   native_parser: true
