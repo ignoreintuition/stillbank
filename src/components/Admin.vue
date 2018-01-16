@@ -96,7 +96,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger"> Delete </button>
+            <button @click="handleDelete(updateTrans.id)" type="button" class="btn btn-danger"> Delete </button>
             <button type="submit" class="btn btn-primary"> Submit </button>
           </div>
         </form>
@@ -124,6 +124,7 @@ export default {
         amount: null,
       },
       updateTrans: {
+        id: null,
         date: null,
         type: null,
         amount: null,
@@ -131,7 +132,7 @@ export default {
     };
   },
   created() {
-    const url = `http://localhost:3000/trans/?sid=${this.$route.params.id}`;
+    const url = `http://localhost:3000/getTrans/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data.transactions = d;
     });
@@ -144,17 +145,27 @@ export default {
       $.post(url, this.newTrans);
       this.data.transactions.push(this.newTrans);
       $('#newTransModal').modal('hide');
-      this.newTrans.date = null;
-      this.newTrans.type = null;
-      this.newTrans.amount = null;
     },
     handleUpdate(evt) {
       evt.preventDefault();
     },
-    handleDelete(evt) {
-      evt.preventDefault();
+    handleDelete(id) {
+      const url = 'http://localhost:3000/deleteTrans/' + id;
+      var self = this;
+      $('#updateTransModal').modal('hide');
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        contentType: 'text/plain',
+        success: function(response) {
+          let i = self.data.transactions.map(item => item._id).indexOf(id) // find index of your object
+          console.log(i);
+          self.data.transactions.splice(i, 1) // remove it from array
+        }
+      });
     },
     itemClicked(item) {
+      this.updateTrans.id = item._id;
       this.updateTrans.date = item.date;
       this.updateTrans.type = item.type;
       this.updateTrans.amount = item.amount;
