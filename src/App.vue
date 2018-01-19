@@ -1,10 +1,9 @@
 <template>
   <div class="container">
       <div id="app">
-        <div class="row">
-          <div id="header" class="col-sm">
-            <H1> Stillbank: A Super Simple Accounting App for Kids </H1>
-          </div>
+        <div id="header" class="row">
+          <div class="col-sm-12"> <H1> STILLBANK </H1> </div>
+          <div class="col-sm-12"> <H2> Money Management for Kids - Made Simple </H2>  </div>
         </div>
         <div id="top-nav" class="row">
           <nav class="navbar navbar-expand-lg navbar-light">
@@ -16,25 +15,30 @@
                 <li v-if="this.$route.path == '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> HOME </router-link>
                 </li>
-                <li v-if="this.$route.path != '/' && this.$route.name != 'Admin'" class="nav-item">
+                <li v-if="this.$route.path != '/' &&  this.$route.name.indexOf('Admin') == -1" class="nav-item">
                   <router-link :to="{ name: 'Transaction', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
                 </li>
-                <li v-if="this.$route.path != '/' && this.$route.name != 'Admin'" class="nav-item">
+                <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
                   <router-link :to="{ name: 'Account', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
                 </li>
-                <li v-if="this.$route.name == 'Admin'" class="nav-item">
-                  <router-link :to="{ name: 'Admin', params: { id: $route.params.id }}" class="nav-link"> ADMIN </router-link>
+                <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
+                  <router-link :to="{ name: 'Budget', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> WHERE'S MY MONEY </router-link>
+                </li>
+                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
+                  <router-link :to="{ name: 'AdminTransactions', params: { id: $route.params.id }}" class="nav-link"> TRANSACTIONS </router-link>
+                </li>
+                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
+                  <router-link :to="{ name: 'AdminAccounts', params: { id: $route.params.id }}" class="nav-link"> ACCOUNTS </router-link>
                 </li>
                 <li v-if="this.$route.path != '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> LOGOUT </router-link>
                 </li>
-
               </ul>
             </div>
           </nav>
         </div>
-        <router-view />
       </div>
+      <router-view />
       <div class="row">
         <div id="footer" class="col-sm">
           <p> Copyright 2018 Resurgence Web Design </p>
@@ -48,71 +52,36 @@ export default {
 };
 </script>
 
-<!--
 <style>
-/*
-BLACK #000000
-PAYNE'S GREY #5D737E
-SUNNY #FFF07C
-HONEYDEW #F0F7EE
-DARK SEA GREEN #87BBA2
-*/
+
 @font-face {
   font-family: "Amaranth";
   src: url('./assets/fonts/Amaranth-Regular.ttf') format("truetype");
 }
 body {
   background-image: url('./assets/img/light-veneer.png');
-
 }
+
 h1, h2, h3, h4, h5 {
   font-family: 'Amaranth', sans-serif;
 }
 
-#app-panel {
-  background-color: #F0F7EE;
+i {
+  color: #000000;
 }
 
+.filterPanel {
+  padding-bottom: 5px;
+}
+
+#app-panel {
+  background-color: #FFFFFF;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
 
 #header, #top-nav, #footer {
   background-color: #FFF07C;
 }
 
-#top-content {
-  padding: 5px;
-}
-
-.cell, .f-cell, .h-cell, .input-cell {
-  margin: 2px;
-}
-
-.cell {
-  background-color: #FFFFFF;
-  color: #000000;
-}
-
-
-.h-cell , .amt {
-  text-align: center;
-}
-
-.cell a,
-.cell a:visited,
-.cell a:hover,
-.cell a:active {
-  color: #000000;
-}
-
-.btn-primary, .btn-primary:visited  {
-  background-color: #87BBA2;
-  border-color: #FFFFFF;
-  color: #000000;
-}
-
-.btn-primary:active, .btn-primary:hover {
-  background-color: #5D737E;
-  border-color: #FFFFFF;
-  color: #FFFFFF;
-}
 </style>
--->

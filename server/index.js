@@ -36,6 +36,9 @@ app.get('/getTrans/:id', (req, res) => {
   db.collection('sb_transactions').find({
     "accountID": req.params.id
   }).toArray(function(err, results) {
+    results.sort(function (a, b) {
+       return new Date(b.date) - new Date(a.date);
+    });
     res.send(results);
   });
 });
@@ -73,7 +76,14 @@ app.delete('/deleteTrans/:id', (req, res) => {
    });
 });
 
-// Delete transactions
-app.put('/updateTrans/:id', (req, res) => {
-
+// Update transactions
+app.post('/updateTrans/:id', (req, res) => {
+  const details = { '_id': new ObjectID(req.params.id) };
+  db.collection('sb_transactions').update(details, {
+    date:req.body.date,
+    type:req.body.type,
+    amount: req.body.amount,
+    accountID: req.body.accountID,
+    comment: req.body.comment
+  });
 });

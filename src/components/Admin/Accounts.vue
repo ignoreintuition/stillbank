@@ -2,33 +2,9 @@
 <div class="row" id="app-panel">
   <div id="top-content" class="col-sm">
     <div class="container">
-      <h2> Manage your kid's accounts </h2>
-      <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#newTransModal">
-          Add Transaction
-        </button>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th> Edit </th>
-            <th> Date </th>
-            <th> Transaction Type </th>
-            <th> Amount </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="t in data.transactions">
-            <td>
-              <button @click="itemClicked(t)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-            </td>
-            <td> {{t.date}} </td>
-            <td> {{t.type}}</td>
-            <td> {{t.amount}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#newTransModal">
-          Add Transaction
-        </button>
+      <h2> Manage your kids accounts </h2>
+      <p> You want your kids to be independent so make sure they each have their own account and their own
+      transaction ledger.  Set up automatic transactions for allowances and set reminders for when things need to be paid. </p>
     </div>
   </div>
 
@@ -46,18 +22,22 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="newTransDate" class="form-control-label"> Date </label>
-              <input id="newTransDate" type="date" class="col-12 form-control" v-model=newTrans.date> </input>
+              <input id="newTransDate" type="date" class="col-12 form-control" v-model=newTrans.date required> </input>
             </div>
             <div class="form-group">
               <label for="newTransType" class="form-control-label"> Type </label>
-              <select id="newTransType" class="col-12 form-control" v-model=newTrans.type>
+              <select id="newTransType" class="col-12 form-control" v-model=newTrans.type required>
                   <option value="credit"> Credit </option>
                   <option value="credit"> Debit </option>
                 </select>
             </div>
             <div class="form-group">
               <label for="newTransAmount" class="form-control-label"> Amount </label>
-              <input id="newTransAmount" type="number" min="0.01" step="0.01" class="col-12 form-control" v-model=newTrans.amount> </input>
+              <input id="newTransAmount" type="number" min="0.01" step="0.01" class="col-12 form-control" v-model=newTrans.amount required> </input>
+            </div>
+            <div class="form-group">
+              <label for="newTransComment" class="form-control-label"> Comments </label>
+              <input id="newTransComment" type="text" class="col-12 form-control" v-model=newTrans.comments> </input>
             </div>
           </div>
           <div class="modal-footer">
@@ -83,20 +63,24 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="updateTransDate" class="form-control-label"> Date </label>
-              <input id="updateTransDate" type="date" class="col-12 form-control" v-model=updateTrans.date> </input>
+              <input id="updateTransDate" type="date" class="col-12 form-control" v-model=updateTrans.date required> </input>
             </div>
             <div class="form-group">
               <label for="updateTransType" class="form-control-label"> Type </label>
-              <input id="updateTransType" class="col-12 form-control" v-model=updateTrans.type> </input>
+              <input id="updateTransType" class="col-12 form-control" v-model=updateTrans.type required> </input>
             </div>
             <div class="form-group">
               <label for="updateTransAmount" class="form-control-label"> Amount </label>
-              <input id="updateTransAmount" class="col-12 form-control" v-model=updateTrans.amount> </input>
+              <input id="updateTransAmount" class="col-12 form-control" v-model=updateTrans.amount required> </input>
+            </div>
+            <div>
+            <input id="_id" type="hidden" v-model=updateTrans._id> </input>
+            <input id="accountID" type="hidden" v-model=updateTrans.accountID> </input>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button @click="handleDelete(updateTrans.id)" type="button" class="btn btn-danger"> Delete </button>
+            <button @click="handleDelete(updateTrans._id)" type="button" class="btn btn-danger"> Delete </button>
             <button type="submit" class="btn btn-primary"> Submit </button>
           </div>
         </form>
@@ -122,9 +106,10 @@ export default {
         date: null,
         type: null,
         amount: null,
+        comment: null,
       },
       updateTrans: {
-        id: null,
+        _id: null,
         date: null,
         type: null,
         amount: null,
@@ -148,28 +133,43 @@ export default {
     },
     handleUpdate(evt) {
       evt.preventDefault();
+      const url = `http://localhost:3000/updateTrans/${this.updateTrans._id}`;
+      $.post(url, this.updateTrans)
+      const i = this.data.transactions.map(item => item._id).indexOf(this.updateTrans._id);
+      this.data.transactions[i] = this.updateTrans;
+      $('#updateTransModal').modal('hide');
+      this.updateTrans =  {
+        _id: null,
+        date: null,
+        type: null,
+        amount: null,
+      };
     },
-    handleDelete(id) {
-      const url = 'http://localhost:3000/deleteTrans/' + id;
-      var self = this;
+    handleDelete(_id) {
+      const url = `http://localhost:3000/deleteTrans/${_id}`;
+      const self = this;
       $('#updateTransModal').modal('hide');
       $.ajax({
-        url: url,
+        url,
         type: 'DELETE',
         contentType: 'text/plain',
-        success: function(response) {
-          let i = self.data.transactions.map(item => item._id).indexOf(id) // find index of your object
-          console.log(i);
-          self.data.transactions.splice(i, 1) // remove it from array
-        }
+        success() {
+          const i = self.data.transactions.map(item => item._id).indexOf(_id);
+          self.data.transactions.splice(i, 1);
+        },
       });
     },
     itemClicked(item) {
-      this.updateTrans.id = item._id;
+      this.updateTrans._id = item._id;
       this.updateTrans.date = item.date;
       this.updateTrans.type = item.type;
       this.updateTrans.amount = item.amount;
+      this.updateTrans.accountID = item.accountID;
       $('#updateTransModal').modal('show');
+    },
+    formatCurrency(value) {
+      const val = (value / 1).toFixed(2);
+      return `$ ${val.toString()}`;
     },
   },
 };

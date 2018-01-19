@@ -2,15 +2,27 @@
   <div class="row" id="app-panel">
     <div id="top-content" class="col-sm">
       <div class="container">
-        <h2> About Me </h2>
-        <table class="table table-striped">
+        <h2> Account Details </h2>
+        <p> From your account details you can see important information that pretains to your account.  This includes
+        and cyclical (repeated) transactions such as allowances or debt payments.  You can also see a summary of how much money
+        you have in your account which is called your Balance.</p>
+        <table class="table">
           <tr>
-            <td> Name</td>
+            <td>
+              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </td>
+            <td> Name </td>
             <td> {{ data.name }} </td>
           </tr>
           <tr>
+            <td></td>
             <td> Allowance </td>
             <td> {{ data.allowance }} </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td> Balance </td>
+            <td> {{ data.balance }} </td>
           </tr>
         </table>
       </div>
