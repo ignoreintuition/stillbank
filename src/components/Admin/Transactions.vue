@@ -149,7 +149,7 @@ export default {
     };
   },
   created() {
-    const url = `http://localhost:3000/getTrans/${this.$route.params.id}`;
+    const url = `${process.env.REST_API}/getTrans/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data.transactions = d;
     });
@@ -158,19 +158,19 @@ export default {
     handleSubmit(evt) {
       evt.preventDefault();
       this.newTrans.accountID = this.$route.params.id;
-      const url = 'http://localhost:3000/';
+      const url = `${process.env.REST_API}/`;
       $.post(url, this.newTrans);
       this.data.transactions.push(this.newTrans);
       $('#newTransModal').modal('hide');
     },
     handleUpdate(evt) {
       evt.preventDefault();
-      const url = `http://localhost:3000/updateTrans/${this.updateTrans._id}`;
-      $.post(url, this.updateTrans)
+      const url = `${process.env.REST_API}/updateTrans/${this.updateTrans._id}`;
+      $.post(url, this.updateTrans);
       const i = this.data.transactions.map(item => item._id).indexOf(this.updateTrans._id);
       this.data.transactions[i] = this.updateTrans;
       $('#updateTransModal').modal('hide');
-      this.updateTrans =  {
+      this.updateTrans = {
         _id: null,
         date: null,
         type: null,
@@ -179,7 +179,7 @@ export default {
       };
     },
     handleDelete(_id) {
-      const url = `http://localhost:3000/deleteTrans/${_id}`;
+      const url = `${process.env.REST_API}/deleteTrans/${_id}`;
       const self = this;
       $('#updateTransModal').modal('hide');
       $.ajax({

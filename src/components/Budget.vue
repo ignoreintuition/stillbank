@@ -22,35 +22,3 @@
   </div>
 </div>
 </template>
-
-<script>
-window.jQuery = require('jquery');
-
-const $ = window.jQuery;
-export default {
-  data() {
-    return {
-      data: {
-        transactions: [],
-        startDate: "2018-01-01",
-        endDate: "2018-12-31",
-      },
-    };
-  },
-  created() {
-    const url = `http://localhost:3000/getTrans/${this.$route.params.id}`;
-    $.get(url, (d) => {
-      this.data.transactions = d;
-    });
-  },
-  methods: {
-    formatCurrency(value) {
-      const val = (value / 1).toFixed(2);
-      return `$ ${val.toString()}`;
-    },
-    updateDate() {
-      console.log('update date');
-    }
-  },
-};
-</script>

@@ -44,7 +44,7 @@ export default {
     };
   },
   created() {
-    const url = `http://localhost:3000/acct/${this.$route.params.id}`;
+    const url = `${process.env.REST_API}/acct/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data = d;
     });

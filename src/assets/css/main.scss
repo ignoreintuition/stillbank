@@ -1,0 +1,43 @@
+$sky: #7CDBD5;
+$bright_coral: #F53240;
+$golden: #F9BE02;
+$aqua_marine: #02C8A7;
+
+$theme-colors: (
+  primary: $sky,
+  secondary: $aqua_marine,
+  danger: $bright_coral
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: "Amaranth";
+  src: url('../../assets/fonts/Amaranth-Regular.ttf') format("truetype");
+}
+
+body {
+  background-image: url('../../assets/img/shattered.png');
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Amaranth', sans-serif;
+}
+
+i {
+  color: $black;
+}
+
+.filterPanel {
+  padding-bottom: 5px;
+}
+
+#app-panel {
+  background-color: $white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+#header, #top-nav, #footer {
+  background-color: $golden;
+}

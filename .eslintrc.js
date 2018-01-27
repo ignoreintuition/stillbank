@@ -43,7 +43,9 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', {
       optionalDependencies: ['test/unit/index.js']
     }],
-    // allow debugger during development
+    'no-underscore-dangle': ["error", {
+      "allow": ["item._id", "this.updateTrans._id"]
+    }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }

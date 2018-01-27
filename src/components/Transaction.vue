@@ -97,8 +97,8 @@ export default {
     return {
       data: {
         transactions: [],
-        startDate: "2018-01-01",
-        endDate: "2018-12-31",
+        startDate: '2018-01-01',
+        endDate: '2018-12-31',
       },
       updateTrans: {
         _id: null,
@@ -110,7 +110,7 @@ export default {
     };
   },
   created() {
-    const url = `http://localhost:3000/getTrans/${this.$route.params.id}`;
+    const url = `${process.env.REST_API}/getTrans/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data.transactions = d;
     });
@@ -131,7 +131,7 @@ export default {
     },
     updateDate() {
       console.log('update date');
-    }
+    },
   },
 };
 </script>

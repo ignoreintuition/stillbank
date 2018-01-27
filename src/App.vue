@@ -51,37 +51,3 @@ export default {
   name: 'app',
 };
 </script>
-
-<style>
-
-@font-face {
-  font-family: "Amaranth";
-  src: url('./assets/fonts/Amaranth-Regular.ttf') format("truetype");
-}
-body {
-  background-image: url('./assets/img/light-veneer.png');
-}
-
-h1, h2, h3, h4, h5 {
-  font-family: 'Amaranth', sans-serif;
-}
-
-i {
-  color: #000000;
-}
-
-.filterPanel {
-  padding-bottom: 5px;
-}
-
-#app-panel {
-  background-color: #FFFFFF;
-  padding-bottom: 20px;
-  padding-top: 20px;
-}
-
-#header, #top-nav, #footer {
-  background-color: #FFF07C;
-}
-
-</style>
