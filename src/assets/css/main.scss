@@ -16,8 +16,25 @@ $theme-colors: (
   src: url('../../assets/fonts/Amaranth-Regular.ttf') format("truetype");
 }
 
+img#hero {
+  width:33%;
+  height: auto;
+  float: right;
+}
+
+img#logo {
+  width: auto;
+  height: 100px;
+  padding: 5%;
+
+}
 body {
   background-image: url('../../assets/img/shattered.png');
+}
+
+#header h1,
+#header h2 {
+  color: $black;
 }
 
 h1, h2, h3, h4, h5 {
@@ -40,4 +57,12 @@ i {
 
 #header, #top-nav, #footer {
   background-color: $golden;
+}
+
+#footer a {
+  color: black;
+}
+
+#footer .right {
+  text-align: right;
 }

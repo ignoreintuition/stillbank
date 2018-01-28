@@ -2,8 +2,17 @@
   <div class="container">
       <div id="app">
         <div id="header" class="row">
-          <div class="col-sm-12"> <H1> STILLBANK </H1> </div>
-          <div class="col-sm-12"> <H2> Money Management for Kids - Made Simple </H2>  </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-2 col-4">
+                <img id="logo" src="./assets/img/logo.png">
+              </div>
+              <div class="col-md-10 col-8">
+                <H1> StillBank </H1>
+                <H2> Money Management for Kids </H2>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="top-nav" class="row">
           <nav class="navbar navbar-expand-lg navbar-light">
@@ -14,6 +23,9 @@
               <ul class="navbar-nav">
                 <li v-if="this.$route.path == '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> HOME </router-link>
+                </li>
+                <li v-if="this.$route.path == '/'" class="nav-item">
+                  <a href="#" data-toggle="modal" data-target="#loginModal" class="nav-link"> LOGIN </a>
                 </li>
                 <li v-if="this.$route.path != '/' &&  this.$route.name.indexOf('Admin') == -1" class="nav-item">
                   <router-link :to="{ name: 'Transaction', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
@@ -39,9 +51,12 @@
         </div>
       </div>
       <router-view />
-      <div class="row">
-        <div id="footer" class="col-sm">
+      <div id="footer" class="row">
+        <div class="col-6">
           <p> Copyright 2018 Resurgence Web Design </p>
+        </div>
+        <div class="col-6 right">
+          <p> Logo via <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a></p>
         </div>
       </div>
     </div></template>
