@@ -18,17 +18,17 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/Transaction/:id',
+      path: '/Transaction/',
       name: 'Transaction',
       component: Transaction,
     },
     {
-      path: '/Account/:id',
+      path: '/Account/',
       name: 'Account',
       component: Account,
     },
     {
-      path: '/Budget/:id',
+      path: '/Budget/',
       name: 'Budget',
       component: Budget,
     },
@@ -38,7 +38,7 @@ export default new Router({
       component: AdminTransactions,
     },
     {
-      path: '/Admin/Accounts/:id',
+      path: '/Admin/Accounts/',
       name: 'AdminAccounts',
       component: AdminAccounts,
     },

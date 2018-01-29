@@ -96,6 +96,7 @@ export default {
   data() {
     return {
       data: {
+        acctID: null,
         transactions: [],
         startDate: '2018-01-01',
         endDate: '2018-12-31',
@@ -110,7 +111,8 @@ export default {
     };
   },
   created() {
-    const url = `${process.env.REST_API}/getTrans/${this.$route.params.id}`;
+    this.data.acctID = sessionStorage.getItem('sb.acctID');
+    const url = `${process.env.REST_API}/getTrans/${this.data.acctID}`;
     $.get(url, (d) => {
       this.data.transactions = d;
     });

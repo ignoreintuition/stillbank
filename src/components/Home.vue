@@ -16,12 +16,12 @@
       to start learning that skill.  Your mom or dad will keep track of depositing (adding money) and withdrawing (taking money out)
       of your account so you will always know how much you have.  You can then categorize your spending so you will
       know where you money is going. </p>
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Kids Login</button>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
       <h2> Parents </h2>
       <p> Start teaching your kids about money management.  Set up a Stillbank account and you can show your kids at any time
       how much money they have from allowances, gifts, etc.  Deduct money on the fly when they make a purchase.  Help them to set goals.
       Teach them how to track their spending and set up budgets.  </p>
-      <router-link class="btn btn-primary btn-lg" role="button" :to="{ name: 'AdminTransactions', params: { id: 1 }}"> Adult Login </router-link>
+      <router-link class="btn btn-primary btn-lg" role="button" :to="{ name: 'AdminTransactions', params: { id: 1 }}"> Login </router-link>
     </div>
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,7 +41,7 @@
               </div>
               <div class="form-group">
                 <label for="password" class="form-control-label"> Password </label>
-                <input id="password" name="password" class="col-12 form-control"  required> </input>
+                <input type="password" id="password" name="password" class="col-12 form-control"> </input>
               </div>
             </div>
             <div class="modal-footer">
@@ -52,7 +52,27 @@
         </div>
       </div>
     </div>
-  </div>
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form id = "signupForm">
+            <div class="modal-header">
+              <h2 class="modal-title"> Signup </h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              Stillbank is in closed beta and is not currently taking sign ups.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>  </div>
 </template>
 
 <script>
@@ -73,9 +93,20 @@ export default {
       evt.preventDefault();
       const url = `${process.env.REST_API}/login`;
       $.post(url, $("#loginForm").serialize(), function(d){
-        console.log('form');
+        if (d.accountID) {
+          sessionStorage.setItem('sb.acctID', d.accountID);
+          if(d.masterAccountID === d.accountID) {
+            window.location.href =`http://localhost:8080/#/Admin/Accounts/`;
+            sessionStorage.setItem('sb.master', false);
+          }
+          else{
+            window.location.href =`http://localhost:8080/#/Transaction/`;
+            sessionStorage.setItem('sb.master', true);
+          }
+          $('#loginModal').modal('hide');
+        } else
+        console.log("failed");
       });
-      $('#loginModal').modal('hide');
     },
   },
 };

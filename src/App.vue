@@ -27,20 +27,20 @@
                 <li v-if="this.$route.path == '/'" class="nav-item">
                   <a href="#" data-toggle="modal" data-target="#loginModal" class="nav-link"> LOGIN </a>
                 </li>
+                <li v-if="this.$route.path == '/'" class="nav-item">
+                  <a href="#" data-toggle="modal" data-target="#signupModal" class="nav-link"> SIGN UP </a>
+                </li>
                 <li v-if="this.$route.path != '/' &&  this.$route.name.indexOf('Admin') == -1" class="nav-item">
-                  <router-link :to="{ name: 'Transaction', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
+                  <router-link :to="{ name: 'Transaction' }" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
                 </li>
                 <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
-                  <router-link :to="{ name: 'Account', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
+                  <router-link :to="{ name: 'Account' }" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
                 </li>
                 <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
-                  <router-link :to="{ name: 'Budget', params: { id: $route.params.id }}" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> WHERE'S MY MONEY </router-link>
+                  <router-link :to="{ name: 'Budget' }" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> WHERE'S MY MONEY </router-link>
                 </li>
                 <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
-                  <router-link :to="{ name: 'AdminTransactions', params: { id: $route.params.id }}" class="nav-link"> TRANSACTIONS </router-link>
-                </li>
-                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
-                  <router-link :to="{ name: 'AdminAccounts', params: { id: $route.params.id }}" class="nav-link"> ACCOUNTS </router-link>
+                  <router-link :to="{ name: 'AdminAccounts' }" class="nav-link"> ACCOUNTS </router-link>
                 </li>
                 <li v-if="this.$route.path != '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> LOGOUT </router-link>

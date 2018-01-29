@@ -38,13 +38,15 @@ export default {
   data() {
     return {
       data: {
+        acctID: null,
         name: null,
         allowance: null,
       },
     };
   },
   created() {
-    const url = `${process.env.REST_API}/acct/${this.$route.params.id}`;
+    this.data.acctID = sessionStorage.getItem('sb.acctID');
+    const url = `${process.env.REST_API}/acct/${this.data.acctID}`;
     $.get(url, (d) => {
       this.data = d;
     });
