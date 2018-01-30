@@ -96,11 +96,11 @@ export default {
         if (d.accountID) {
           sessionStorage.setItem('sb.acctID', d.accountID);
           if(d.masterAccountID === d.accountID) {
-            window.location.href =`http://localhost:8080/#/Admin/Accounts/`;
+            window.location.href =`${window.location.href}Admin/Accounts/`;
             sessionStorage.setItem('sb.master', false);
           }
           else{
-            window.location.href =`http://localhost:8080/#/Transaction/`;
+            window.location.href =`${window.location.href}Transaction/`;
             sessionStorage.setItem('sb.master', true);
           }
           $('#loginModal').modal('hide');

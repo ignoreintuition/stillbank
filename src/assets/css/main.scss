@@ -16,6 +16,9 @@ $theme-colors: (
   src: url('../../assets/fonts/Amaranth-Regular.ttf') format("truetype");
 }
 
+#loginModal {
+  position: absolute;
+}
 img#hero {
   width:33%;
   height: auto;

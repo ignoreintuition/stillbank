@@ -34,6 +34,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * Add account management
 * Add filters
 * Add totals
-* Retool kid and adult login.
-  * proper navigation
+* Improve login
 * Mobile breakpoints
+
+## bugs
+* ios login modal

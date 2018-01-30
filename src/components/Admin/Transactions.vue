@@ -55,7 +55,7 @@
               <label for="newTransType" class="form-control-label"> Type </label>
               <select id="newTransType" class="col-12 form-control" v-model=newTrans.type required>
                   <option value="credit"> Credit </option>
-                  <option value="credit"> Debit </option>
+                  <option value="debit"> Debit </option>
                 </select>
             </div>
             <div class="form-group">
