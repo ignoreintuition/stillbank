@@ -37,7 +37,7 @@
                   <router-link :to="{ name: 'Account' }" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
                 </li>
                 <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
-                  <router-link :to="{ name: 'Budget' }" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> WHERE'S MY MONEY </router-link>
+                  <router-link :to="{ name: 'Budget' }" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> BUDGET & GOALS </router-link>
                 </li>
                 <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
                   <router-link :to="{ name: 'AdminAccounts' }" class="nav-link"> ACCOUNTS </router-link>

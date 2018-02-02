@@ -6,33 +6,34 @@
       <p> A ledger is a list of every time you get money (a debit) and spend money (a credit).  Using the
       filters below you can adjust the date range for the transactions displayed.  Your balance (total of all
       debits and credits) shows how much money you actually have </p>
-      <p>Currently displaying transactions for {{data.name}} from {{data.startDate}} to {{data.endDate}}</p>
+  
+      <!-- Filter Panel -->
       <div class='filterPanel'>
         <form @submit.prevent="updateDate" class="form-inline">
           <label class="sr-only" for="inlineFormInput">StartDate</label>
           <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" v-model=data.startDate>
           <label class="sr-only" for="inlineFormInput">EndDate</label>
           <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" v-model=data.endDate>
-          <button type="submit" class="btn btn-primary">Update</button>
         </form>
       </div>
+
       <table class="table table-striped">
         <thead>
           <tr>
             <th> Edit </th>
             <th> Date </th>
-            <th> Transaction Type </th>
-            <th> Amount </th>
+            <th> Debit </th>
+            <th> Credit </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="t in data.transactions">
+          <tr v-for="t in filterTrans">
             <td>
                 <button @click="itemClicked(t)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
             <td> {{ t.date }} </td>
-            <td> {{ t.type }} </td>
-            <td> {{ formatCurrency(t.amount) }} </td>
+            <td> <div class="debit" v-if="t.type === 'debit'"> {{ formatCurrency(t.amount) }} </div></td>
+            <td> <div class="credit" v-if="t.type === 'credit'"> -{{ formatCurrency(t.amount) }} </div></td>
           </tr>
         </tbody>
       </table>
@@ -63,10 +64,6 @@
               <label for="updateTransAmount" class="form-control-label"> Amount </label>
               <input readonly id="updateTransAmount" class="col-12 form-control" v-model=updateTrans.amount required> </input>
             </div>
-            <div>
-            <input id="_id" type="hidden" v-model=updateTrans._id> </input>
-            <input id="accountID" type="hidden" v-model=updateTrans.accountID> </input>
-            </div>
             <div class="form-group">
               <label for="updateTransCategory" class="form-control-label"> Category </label>
               <input id="updateTransCategory" type="text" class="col-12 form-control" v-model=updateTrans.category> </input>
@@ -75,10 +72,13 @@
               <label for="updateTransComment" class="form-control-label"> Comments </label>
               <input id="updateTransComment" type="text" class="col-12 form-control" v-model=updateTrans.comment> </input>
             </div>
+            <div>
+              <input id="_id" type="hidden" v-model=updateTrans._id> </input>
+              <input id="accountID" type="hidden" v-model=updateTrans.accountID> </input>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button @click="handleDelete(updateTrans._id)" type="button" class="btn btn-danger"> Delete </button>
             <button type="submit" class="btn btn-primary"> Submit </button>
           </div>
         </form>
@@ -107,8 +107,15 @@ export default {
         type: null,
         amount: null,
         comment: null,
+        category: null,
       },
     };
+  },
+  computed: {
+    filterTrans(){
+      return this.data.transactions.filter(t =>
+        t.date >= this.data.startDate && t.date <= this.data.endDate )
+    }
   },
   created() {
     this.data.acctID = sessionStorage.getItem('sb.acctID');
@@ -125,11 +132,29 @@ export default {
       this.updateTrans.amount = item.amount;
       this.updateTrans.comment = item.comment;
       this.updateTrans.accountID = item.accountID;
+      this.updateTrans.category = item.category;
       $('#updateTransModal').modal('show');
     },
+    handleUpdate(evt) {
+      evt.preventDefault();
+      const url = `${process.env.REST_API}/updateTrans/${this.updateTrans._id}`;
+      $.post(url, this.updateTrans);
+      const i = this.data.transactions.map(item => item._id).indexOf(this.updateTrans._id);
+      this.data.transactions.splice(i, 1, this.updateTrans);
+      $('#updateTransModal').modal('hide');
+      this.updateTrans = {
+        _id: null,
+        date: null,
+        type: null,
+        amount: null,
+        comment: null,
+        category: null,
+      };
+    },
+
     formatCurrency(value) {
       const val = (value / 1).toFixed(2);
-      return `$ ${val.toString()}`;
+      return `$${val.toString()}`;
     },
     updateDate() {
       console.log('update date');

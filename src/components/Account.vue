@@ -3,8 +3,8 @@
     <div id="top-content" class="col-sm">
       <div class="container">
         <h2> Account Details </h2>
-        <p> From your account details you can see important information that pretains to your account.  This includes
-        and cyclical (repeated) transactions such as allowances or debt payments.  You can also see a summary of how much money
+        <p> From your account details you can see important information that pertains to your account.  This includes
+        any cyclical (repeated) transactions such as allowances or debt payments.  You can also see a summary of how much money
         you have in your account which is called your Balance.</p>
         <table class="table">
           <tr>
@@ -21,8 +21,13 @@
           </tr>
           <tr>
             <td></td>
+            <td> Starting Balance </td>
+            <td> {{ data.startBal }} </td>
+          </tr>
+          <tr>
+            <td></td>
             <td> Balance </td>
-            <td> {{ data.balance }} </td>
+            <td> {{ data.total }} </td>
           </tr>
         </table>
       </div>

@@ -6,6 +6,17 @@
       <p> Diligence is critical to keeping your kids on track for saving money.  By regularly updating the transactions in their account they
       can get immediate feedback on where their money is going.  The better the records you keep the better they will understand what it means
       to save money.  Think about it as you are the banker and your kids are the customer. </p>
+
+      <!-- Filter Panel -->
+      <div class='filterPanel'>
+        <form @submit.prevent="updateDate" class="form-inline">
+          <label class="sr-only" for="inlineFormInput">StartDate</label>
+          <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" v-model=data.startDate>
+          <label class="sr-only" for="inlineFormInput">EndDate</label>
+          <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" v-model=data.endDate>
+        </form>
+      </div>
+
       <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#newTransModal">
           Add Transaction
         </button>
@@ -14,18 +25,18 @@
           <tr>
             <th> Edit </th>
             <th> Date </th>
-            <th> Transaction Type </th>
-            <th> Amount </th>
+            <th> Debit </th>
+            <th> Credit </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="t in data.transactions">
+          <tr v-for="t in filterTrans">
             <td>
               <button @click="itemClicked(t)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
             <td> {{t.date}} </td>
-            <td> {{t.type}} </td>
-            <td> {{ formatCurrency(t.amount)}} </td>
+            <td> <div class="debit" v-if="t.type === 'debit'"> {{ formatCurrency(t.amount) }} </div></td>
+            <td> <div class="credit" v-if="t.type === 'credit'"> -{{ formatCurrency(t.amount) }} </div></td>
           </tr>
         </tbody>
       </table>
@@ -56,7 +67,7 @@
               <select id="newTransType" class="col-12 form-control" v-model=newTrans.type required>
                   <option value="credit"> Credit </option>
                   <option value="debit"> Debit </option>
-                </select>
+              </select>
             </div>
             <div class="form-group">
               <label for="newTransAmount" class="form-control-label"> Amount </label>
@@ -94,11 +105,18 @@
             </div>
             <div class="form-group">
               <label for="updateTransType" class="form-control-label"> Type </label>
-              <input id="updateTransType" class="col-12 form-control" v-model=updateTrans.type required> </input>
+              <select id="updateTransType" class="col-12 form-control" v-model=updateTrans.type required>
+                  <option value="credit"> Credit </option>
+                  <option value="debit"> Debit </option>
+              </select>
             </div>
             <div class="form-group">
               <label for="updateTransAmount" class="form-control-label"> Amount </label>
-              <input id="updateTransAmount" class="col-12 form-control" v-model=updateTrans.amount required> </input>
+              <input id="updateTransAmount" type="number" min="0.01" step="0.01" class="col-12 form-control" v-model=updateTrans.amount required> </input>
+            </div>
+            <div class="form-group">
+              <label for="updateTransCategory" class="form-control-label"> Category </label>
+              <input id="updateTransCategory" type="text" class="col-12 form-control" v-model=updateTrans.category> </input>
             </div>
             <div>
             <input id="_id" type="hidden" v-model=updateTrans._id> </input>
@@ -132,11 +150,14 @@ export default {
     return {
       data: {
         transactions: [],
+        startDate: '2018-01-01',
+        endDate: '2018-12-31',
       },
       newTrans: {
         date: null,
         type: null,
         amount: null,
+        category: null,
         comment: null,
       },
       updateTrans: {
@@ -144,6 +165,7 @@ export default {
         date: null,
         type: null,
         amount: null,
+        category: null,
         comment: null,
       },
     };
@@ -154,6 +176,12 @@ export default {
       this.data.transactions = d;
     });
   },
+  computed: {
+    filterTrans(){
+      return this.data.transactions.filter(t =>
+        t.date >= this.data.startDate && t.date <= this.data.endDate )
+    }
+  },
   methods: {
     handleSubmit(evt) {
       evt.preventDefault();
@@ -162,19 +190,28 @@ export default {
       $.post(url, this.newTrans);
       this.data.transactions.push(this.newTrans);
       $('#newTransModal').modal('hide');
+      this.newTrans = {
+        _id: null,
+        date: null,
+        type: null,
+        amount: null,
+        category: null,
+        comment: null,
+      };
     },
     handleUpdate(evt) {
       evt.preventDefault();
       const url = `${process.env.REST_API}/updateTrans/${this.updateTrans._id}`;
       $.post(url, this.updateTrans);
       const i = this.data.transactions.map(item => item._id).indexOf(this.updateTrans._id);
-      this.data.transactions[i] = this.updateTrans;
+      this.data.transactions.splice(i, 1, this.updateTrans);
       $('#updateTransModal').modal('hide');
       this.updateTrans = {
         _id: null,
         date: null,
         type: null,
         amount: null,
+        category: null,
         comment: null,
       };
     },
@@ -199,11 +236,12 @@ export default {
       this.updateTrans.amount = item.amount;
       this.updateTrans.comment = item.comment;
       this.updateTrans.accountID = item.accountID;
+      this.updateTrans.category = item.category;
       $('#updateTransModal').modal('show');
     },
     formatCurrency(value) {
       const val = (value / 1).toFixed(2);
-      return `$ ${val.toString()}`;
+      return `$${val.toString()}`;
     },
   },
 };

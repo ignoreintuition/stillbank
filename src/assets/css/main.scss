@@ -15,10 +15,15 @@ $theme-colors: (
   font-family: "Amaranth";
   src: url('../../assets/fonts/Amaranth-Regular.ttf') format("truetype");
 }
-
-#loginModal {
-  position: absolute;
+@media only screen and (max-width: 768px) {
+  .modal-open {
+    position: fixed;
+  }
 }
+.credit {
+  color: $red;
+}
+
 img#hero {
   width:33%;
   height: auto;
