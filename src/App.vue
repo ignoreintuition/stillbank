@@ -43,7 +43,7 @@
                   <router-link :to="{ name: 'AdminAccounts' }" class="nav-link"> ACCOUNTS </router-link>
                 </li>
                 <li v-if="this.$route.path != '/'" class="nav-item">
-                  <router-link :to="{ name: 'Home' }" class="nav-link"> LOGOUT </router-link>
+                  <router-link :to="{ name: 'Home' }" class="nav-link" onclick="sessionStorage.clear();"> LOGOUT </router-link>
                 </li>
               </ul>
             </div>
@@ -65,4 +65,5 @@
 export default {
   name: 'app',
 };
+
 </script>

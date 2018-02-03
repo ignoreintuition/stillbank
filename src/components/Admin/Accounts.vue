@@ -5,26 +5,68 @@
       <h2> Manage your kids accounts </h2>
       <p> You want your kids to be independent so make sure they each have their own account and their own
       transaction ledger.  Set up automatic transactions for allowances and set reminders for when things need to be paid. </p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th> Delete </th>
+            <th> Edit </th>
+            <th> Ledger </th>
+            <th> Name </th>
+            <th> Balance </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="a in filterAcct">
+            <td class="t-button">
+              <a href="#"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+            </td>
+            <td class="t-button">
+              <a href="#"> <i class="fa fa-pencil" aria-hidden="true"></i> </a>
+            </td>
+            <td class="t-button">
+              <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" > <i class="fa fa-list" aria-hidden="true"></i> </router-link>
+            </td>
+            <td> {{ a.name }} </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#newAcctModal">
+        Add Account
+      </button>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th> View Transactions </th>
-          <th> Name </th>
-          <th> Balance </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="a in data.accts">
-          <td>
-            <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" class="nav-link"> <i class="fa fa-pencil" aria-hidden="true"></i> </router-link>
-          </td>
-          <td> {{ a.name }} </td>
-          <td> </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
+
+  <!-- New Account Modal -->
+  <div class="modal fade" id="newAcctModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form @submit.prevent="handleSubmit">
+          <div class="modal-header">
+            <h2 class="modal-title"> New Account </h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="newAcctNm" class="form-control-label"> Name </label>
+              <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.name required> </input>
+            </div>
+            <div class="form-group">
+              <label for="newAcctStartBal" class="form-control-label"> Starting Balance </label>
+              <input id="newTransAmount" type="number" min="0.01" step="0.25" class="col-12 form-control" v-model=newAcct.startBal required> </input>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary"> Submit </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
 </template>
 
@@ -39,7 +81,18 @@ export default {
         acctID: null,
         accts: [],
       },
+      newAcct: {
+        name: null,
+        masterAcctID: null,
+        startBal: null,
+      }
     };
+  },
+  computed: {
+    filterAcct(){
+      return this.data.accts.filter(t =>
+        t.accountID !== t.masterAccountID )
+    }
   },
   created() {
     this.data.acctID = sessionStorage.getItem('sb.acctID');

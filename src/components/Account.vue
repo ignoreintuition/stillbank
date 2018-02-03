@@ -46,6 +46,8 @@ export default {
         acctID: null,
         name: null,
         allowance: null,
+        total: null,
+        startBal: null,
       },
     };
   },

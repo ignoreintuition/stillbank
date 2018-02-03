@@ -18,8 +18,8 @@
       </div>
 
       <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#newTransModal">
-          Add Transaction
-        </button>
+        Add Transaction
+      </button>
       <table class="table table-striped">
         <thead>
           <tr>
