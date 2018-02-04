@@ -55,7 +55,15 @@
             </div>
             <div class="form-group">
               <label for="newAcctStartBal" class="form-control-label"> Starting Balance </label>
-              <input id="newTransAmount" type="number" min="0.01" step="0.25" class="col-12 form-control" v-model=newAcct.startBal required> </input>
+              <input id="newTransAmount" type="number" min="0.00" step="0.25" class="col-12 form-control" v-model=newAcct.startBal required> </input>
+            </div>
+            <div class="form-group">
+              <label for="newLogin" class="form-control-label"> Login </label>
+              <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.login required> </input>
+            </div>
+            <div class="form-group">
+              <label for="newPassword" class="form-control-label"> Password </label>
+              <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.password required> </input>
             </div>
           </div>
           <div class="modal-footer">
@@ -83,8 +91,11 @@ export default {
       },
       newAcct: {
         name: null,
-        masterAcctID: null,
+        masterAccountID: null,
         startBal: null,
+        login: null,
+        password: null,
+        accountID: null,
       }
     };
   },
@@ -93,6 +104,23 @@ export default {
       return this.data.accts.filter(t =>
         t.accountID !== t.masterAccountID )
     }
+  },
+  methods: {
+    handleSubmit(evt) {
+      evt.preventDefault();
+      this.newAcct.masterAccountID = this.data.acctID;
+      const url = `${process.env.REST_API}/addAcct`;
+      $.post(url, this.newAcct);
+      this.data.accts.push(this.newAcct);
+      $('#newAcctModal').modal('hide');
+      this.newAcct = {
+        name: null,
+        masterAccountID: null,
+        startBal: null,
+        login: null,
+        password: null,
+      };
+    },
   },
   created() {
     this.data.acctID = sessionStorage.getItem('sb.acctID');

@@ -30,8 +30,10 @@ npm test
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## To-Do
-* Add account management
+* Edit Account
+* Use proper keys for master
 * Add budgets & goals
-* Clear session storage on logout
-
+* hash password
+* update api to use \_id
+* session based authentication
 ## bugs
