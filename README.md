@@ -31,6 +31,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## To-Do
 * Edit Account
+* delete accounts
 * Use proper keys for master
 * Add budgets & goals
 * hash password
