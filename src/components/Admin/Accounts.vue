@@ -18,7 +18,7 @@
         <tbody>
           <tr v-for="a in filterAcct">
             <td class="t-button">
-              <a href="#"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+              <a href="#" @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
             </td>
             <td class="t-button">
               <a href="#"> <i class="fa fa-pencil" aria-hidden="true"></i> </a>
@@ -75,6 +75,28 @@
     </div>
   </div>
 
+  <!-- Delete Account Modal -->
+  <div class="modal fade" id="deleteAcctModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form @submit.prevent="handleDelete">
+          <div class="modal-header">
+            <h2 class="modal-title"> Delete Account </h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this account?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+            <button type="submit" class="btn btn-danger"> Delete </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -96,6 +118,9 @@ export default {
         login: null,
         password: null,
         accountID: null,
+      },
+      currAcct: {
+
       }
     };
   },
@@ -110,17 +135,38 @@ export default {
       evt.preventDefault();
       this.newAcct.masterAccountID = this.data.acctID;
       const url = `${process.env.REST_API}/addAcct`;
-      $.post(url, this.newAcct);
-      this.data.accts.push(this.newAcct);
+      $.post(url, this.newAcct)
+      .done(d => {
+        this.newAcct.accountID = d;
+        this.data.accts.push(this.newAcct);
+        this.newAcct = {
+          name: null,
+          masterAccountID: null,
+          startBal: null,
+          login: null,
+          password: null,
+        };
+      });
       $('#newAcctModal').modal('hide');
-      this.newAcct = {
-        name: null,
-        masterAccountID: null,
-        startBal: null,
-        login: null,
-        password: null,
-      };
     },
+    handleDelete(evt){
+      const url = `${process.env.REST_API}/deleteAcct/${this.currAcct._id}`;
+      const self = this;
+      $('#deleteAcctModal').modal('hide');
+      $.ajax({
+        url,
+        type: 'DELETE',
+        contentType: 'text/plain',
+        success() {
+          const i = self.data.accts.map(item => item._id).indexOf(this.currAcct._id);
+          self.data.accts.splice(i, 1);
+        },
+      });
+    },
+    deleteAcct(item){
+      $('#deleteAcctModal').modal('show');
+      this.currAcct = item;
+    }
   },
   created() {
     this.data.acctID = sessionStorage.getItem('sb.acctID');

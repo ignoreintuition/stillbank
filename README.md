@@ -31,8 +31,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## To-Do
 * Edit Account
-* delete accounts
-* Use proper keys for master
+* pop stack for delete accounts 
 * Add budgets & goals
 * hash password
 * update api to use \_id
