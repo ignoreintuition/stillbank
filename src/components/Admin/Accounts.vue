@@ -18,16 +18,16 @@
         <tbody>
           <tr v-for="a in filterAcct">
             <td class="t-button">
-              <a href="#" @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
+              <button @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
             </td>
             <td class="t-button">
-              <a href="#"> <i class="fa fa-pencil" aria-hidden="true"></i> </a>
+              <button> <i class="fa fa-pencil" aria-hidden="true"></i> </button>
             </td>
             <td class="t-button">
               <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" > <i class="fa fa-list" aria-hidden="true"></i> </router-link>
             </td>
             <td> {{ a.name }} </td>
-            <td> </td>
+            <td> {{ formatCurrency(a.total) }} </td>
           </tr>
         </tbody>
       </table>
@@ -82,6 +82,8 @@
         <form @submit.prevent="handleDelete">
           <div class="modal-header">
             <h2 class="modal-title"> Delete Account </h2>
+            <input id="_id" type="hidden" v-model=currAcct._id> </input>
+            <input id="accountID" type="hidden" v-model=currAcct.accountID> </input>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -117,17 +119,21 @@ export default {
         startBal: null,
         login: null,
         password: null,
-        accountID: null,
       },
       currAcct: {
-
+        _id: null,
+        name: null,
+        masterAccountID: null,
+        startBal: null,
+        login: null,
+        password: null,
+        accountID: null,
       }
     };
   },
   computed: {
     filterAcct(){
-      return this.data.accts.filter(t =>
-        t.accountID !== t.masterAccountID )
+      return this.data.accts.filter(t => t.accountID !== t.masterAccountID )
     }
   },
   methods: {
@@ -145,12 +151,18 @@ export default {
           startBal: null,
           login: null,
           password: null,
+          total: null,
         };
       });
       $('#newAcctModal').modal('hide');
     },
+    formatCurrency(value) {
+      const val = (value / 1).toFixed(2);
+      return `$${val.toString()}`;
+    },
     handleDelete(evt){
-      const url = `${process.env.REST_API}/deleteAcct/${this.currAcct._id}`;
+      evt.preventDefault();
+      const url = `${process.env.REST_API}/deleteAcct/${this.currAcct.accountID}`;
       const self = this;
       $('#deleteAcctModal').modal('hide');
       $.ajax({
@@ -158,7 +170,9 @@ export default {
         type: 'DELETE',
         contentType: 'text/plain',
         success() {
-          const i = self.data.accts.map(item => item._id).indexOf(this.currAcct._id);
+          const i = self.data.accts.map(item => {
+            return item.accountID
+          }).indexOf(self.currAcct.accountID);
           self.data.accts.splice(i, 1);
         },
       });

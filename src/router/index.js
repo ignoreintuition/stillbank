@@ -6,6 +6,7 @@ import Account from '@/components/Account';
 import Budget from '@/components/Budget';
 import AdminTransactions from '@/components/Admin/Transactions';
 import AdminAccounts from '@/components/Admin/Accounts';
+import AdminSettings from '@/components/Admin/Settings';
 
 
 Vue.use(Router);
@@ -41,6 +42,11 @@ export default new Router({
       path: '/Admin/Accounts/',
       name: 'AdminAccounts',
       component: AdminAccounts,
+    },
+    {
+      path: '/Admin/Settings/',
+      name: 'AdminSettings',
+      component: AdminSettings,
     },
   ],
 });

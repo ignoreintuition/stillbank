@@ -42,6 +42,9 @@
                 <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
                   <router-link :to="{ name: 'AdminAccounts' }" class="nav-link"> ACCOUNTS </router-link>
                 </li>
+                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
+                  <router-link :to="{ name: 'AdminSettings' }" class="nav-link"> SETTINGS </router-link>
+                </li>
                 <li v-if="this.$route.path != '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link" onclick="sessionStorage.clear();"> LOGOUT </router-link>
                 </li>

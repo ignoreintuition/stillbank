@@ -31,9 +31,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## To-Do
 * Edit Account
-* pop stack for delete accounts 
 * Add budgets & goals
 * hash password
-* update api to use \_id
-* session based authentication
+* new user registration
+* verify unique ID
+
 ## bugs
+* update totals when adding transactions on admin
