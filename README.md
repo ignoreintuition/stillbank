@@ -2,6 +2,8 @@
 
 > A Super Simple Accounting App for Kids
 
+Welcome to Stillbank. Our philosophy is that it is never too early to start learning how to manage money. So regardless if you are earning money from doing chores around the house or saving up your birthday money it is important to be responsible with your money. Set goals for yourself, categorize your transactions, and monitor how much money you have so you can save up and spend wisely.
+
 ## Build Setup
 
 ``` bash
@@ -27,8 +29,6 @@ npm run e2e
 npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
 ## To-Do
 * Edit Account
 * Add budgets & goals
@@ -38,3 +38,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## bugs
 * update totals when adding transactions on admin
+* Update routes to show show login when session expires / hide login when session is active
