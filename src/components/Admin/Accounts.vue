@@ -137,6 +137,13 @@ export default {
     }
   },
   methods: {
+    refreshData() {
+      this.data.acctID = sessionStorage.getItem('sb.acctID');
+      const url = `${process.env.REST_API}/adminAcct/${this.data.acctID}`;
+      $.get(url, (d) => {
+        this.data.accts = d;
+      });
+    },
     handleSubmit(evt) {
       evt.preventDefault();
       this.newAcct.masterAccountID = this.data.acctID;
@@ -182,12 +189,11 @@ export default {
       this.currAcct = item;
     }
   },
+  updated() {
+    this.refreshData();
+  },
   created() {
-    this.data.acctID = sessionStorage.getItem('sb.acctID');
-    const url = `${process.env.REST_API}/adminAcct/${this.data.acctID}`;
-    $.get(url, (d) => {
-      this.data.accts = d;
-    });
+    this.refreshData();
   },
 };
 </script>
