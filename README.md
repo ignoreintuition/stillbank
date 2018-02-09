@@ -37,5 +37,4 @@ npm test
 * verify unique ID
 
 ## bugs
-* update totals when adding transactions on admin
 * Update routes to show show login when session expires / hide login when session is active

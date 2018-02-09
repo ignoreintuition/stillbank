@@ -2,6 +2,9 @@
 <div class="row" id="app-panel">
   <div id="top-content" class="col-sm">
     <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">Accounts</li>
+    </ol>
       <h2> Manage your kids accounts </h2>
       <p> You want your kids to be independent so make sure they each have their own account and their own
       transaction ledger.  Set up automatic transactions for allowances and set reminders for when things need to be paid. </p>
@@ -12,22 +15,20 @@
             <th> Edit </th>
             <th> Ledger </th>
             <th> Name </th>
-            <th> Balance </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="a in filterAcct">
             <td class="t-button">
-              <button @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
+              <a href="javascript:;" @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
             </td>
             <td class="t-button">
-              <button> <i class="fa fa-pencil" aria-hidden="true"></i> </button>
+            <router-link :to="{ name: 'AdminAccountDetails', params: { id: a.accountID }}" > <i class="fa fa-pencil" aria-hidden="true"></i> </router-link>
             </td>
             <td class="t-button">
               <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" > <i class="fa fa-list" aria-hidden="true"></i> </router-link>
             </td>
             <td> {{ a.name }} </td>
-            <td> {{ formatCurrency(a.total) }} </td>
           </tr>
         </tbody>
       </table>
@@ -134,7 +135,7 @@ export default {
   computed: {
     filterAcct(){
       return this.data.accts.filter(t => t.accountID !== t.masterAccountID )
-    }
+    },
   },
   methods: {
     refreshData() {
@@ -189,10 +190,7 @@ export default {
       this.currAcct = item;
     }
   },
-  updated() {
-    this.refreshData();
-  },
-  created() {
+  mounted() {
     this.refreshData();
   },
 };

@@ -19,7 +19,12 @@ $theme-colors: (
   .modal-open {
     position: fixed;
   }
+  #content {
+    margin: 0px;
+    min-width: 100%;
+  }
 }
+
 .credit {
   color: $red;
 }

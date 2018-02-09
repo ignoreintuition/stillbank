@@ -2,11 +2,14 @@
 <div class="row" id="app-panel">
   <div id="top-content" class="col-sm">
     <div class="container">
-      <h2> Manage Your Kid's Ledger </h2>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><router-link :to="{ name: 'AdminAccounts' }" > Accounts </router-link></li>
+      <li class="breadcrumb-item active">Transactions</li>
+    </ol>
+    <h2> Manage Your Kid's Ledger </h2>
       <p> Diligence is critical to keeping your kids on track for saving money.  By regularly updating the transactions in their account they
       can get immediate feedback on where their money is going.  The better the records you keep the better they will understand what it means
       to save money.  Think about it as you are the banker and your kids are the customer. </p>
-
       <!-- Filter Panel -->
       <div class='filterPanel'>
         <form @submit.prevent="updateDate" class="form-inline">

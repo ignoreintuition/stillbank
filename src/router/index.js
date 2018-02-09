@@ -5,6 +5,7 @@ import Transaction from '@/components/Transaction';
 import Account from '@/components/Account';
 import Budget from '@/components/Budget';
 import AdminTransactions from '@/components/Admin/Transactions';
+import AdminAccountDetails from '@/components/Admin/AccountDetails';
 import AdminAccounts from '@/components/Admin/Accounts';
 import AdminSettings from '@/components/Admin/Settings';
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/Admin/Transactions/:id',
       name: 'AdminTransactions',
       component: AdminTransactions,
+    },
+    {
+      path: '/Admin/AccountDetails/:id',
+      name: 'AdminAccountDetails',
+      component: AdminAccountDetails,
     },
     {
       path: '/Admin/Accounts/',

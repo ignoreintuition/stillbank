@@ -3,10 +3,10 @@
     <div id="top-content" class="col-sm">
       <div class="container">
       <ol class="breadcrumb">
+        <li class="breadcrumb-item"><router-link :to="{ name: 'AdminAccounts' }" > Accounts </router-link></li>
         <li class="breadcrumb-item active">Settings</li>
       </ol>
-
-        <h2> Account Settings </h2>
+      <h2> Account Settings </h2>
         <table class="table">
           <tr>
             <td>
@@ -21,6 +21,12 @@
             </td>
             <td> Password </td>
             <td> ******** </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td> Total </td>
+            <td> {{formatCurrency(data.total)}} </td>
           </tr>
         </table>
       </div>
@@ -42,11 +48,20 @@ export default {
         total: null,
         startBal: null,
       },
+      from: null,
     };
   },
+  methods: {
+    test(){
+      console.log('test');
+    },
+    formatCurrency(value) {
+      const val = (value / 1).toFixed(2);
+      return `$${val.toString()}`;
+    },
+  },
   created() {
-    this.data.acctID = sessionStorage.getItem('sb.acctID');
-    const url = `${process.env.REST_API}/acct/${this.data.acctID}`;
+    const url = `${process.env.REST_API}/acct/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data = d;
     });
