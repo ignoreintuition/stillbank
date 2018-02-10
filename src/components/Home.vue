@@ -107,12 +107,12 @@ export default {
         if (d.accountID) {
           sessionStorage.setItem('sb.acctID', d.accountID);
           if(d.masterAccountID === d.accountID) {
+            sessionStorage.setItem('sb.master', true);
             window.location.href =`${window.location.href}Admin/Accounts/`;
-            sessionStorage.setItem('sb.master', false);
           }
           else{
+            sessionStorage.setItem('sb.master', false);
             window.location.href =`${window.location.href}Transaction/`;
-            sessionStorage.setItem('sb.master', true);
           }
           $('#loginModal').modal('hide');
         } else

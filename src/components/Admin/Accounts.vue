@@ -64,7 +64,7 @@
             </div>
             <div class="form-group">
               <label for="newPassword" class="form-control-label"> Password </label>
-              <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.password required> </input>
+              <input id="newTransDate" type="password" class="col-12 form-control" v-model=newAcct.password required> </input>
             </div>
           </div>
           <div class="modal-footer">

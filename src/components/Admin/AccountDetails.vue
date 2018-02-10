@@ -2,33 +2,25 @@
   <div class="row" id="app-panel">
     <div id="top-content" class="col-sm">
       <div class="container">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><router-link :to="{ name: 'AdminAccounts' }" > Accounts </router-link></li>
-        <li class="breadcrumb-item active">Settings</li>
-      </ol>
-      <h2> Account Settings </h2>
-        <table class="table">
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Name </td>
-            <td> {{ data.name }} </td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Password </td>
-            <td> ******** </td>
-          </tr>
-          <tr>
-            <td>
-            </td>
-            <td> Total </td>
-            <td> {{formatCurrency(data.total)}} </td>
-          </tr>
-        </table>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><router-link :to="{ name: 'AdminAccounts' }" > Accounts </router-link></li>
+          <li class="breadcrumb-item active">Settings</li>
+        </ol>
+        <h2> Account Settings </h2>
+        <form @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <label for="name" class="form-control-label"> Name </label>
+            <input id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label"> Password </label>
+            <input id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+          </div>
+          <div class="form-group">
+            <label for="total" class="form-control-label"> Total </label>
+            <input readonly id="total" class="col-6 form-control" required :value="formatCurrency(data.total)">  </input>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -52,9 +44,6 @@ export default {
     };
   },
   methods: {
-    test(){
-      console.log('test');
-    },
     formatCurrency(value) {
       const val = (value / 1).toFixed(2);
       return `$${val.toString()}`;

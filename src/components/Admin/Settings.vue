@@ -2,27 +2,20 @@
   <div class="row" id="app-panel">
     <div id="top-content" class="col-sm">
       <div class="container">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Settings</li>
-      </ol>
-
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">Settings</li>
+        </ol>
         <h2> Account Settings </h2>
-        <table class="table">
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Name </td>
-            <td> {{ data.name }} </td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Password </td>
-            <td> ******** </td>
-          </tr>
-        </table>
+        <form @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <label for="name" class="form-control-label"> Name </label>
+            <input id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label"> Password </label>
+            <input id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+          </div>
+        </form>
       </div>
     </div>
   </div>

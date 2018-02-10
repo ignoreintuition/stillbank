@@ -24,28 +24,28 @@
                 <li v-if="this.$route.path == '/'" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> HOME </router-link>
                 </li>
-                <li v-if="this.$route.path == '/'" class="nav-item">
+                <li v-if="!auth()" class="nav-item">
                   <a href="#" data-toggle="modal" data-target="#loginModal" class="nav-link"> LOGIN </a>
                 </li>
-                <li v-if="this.$route.path == '/'" class="nav-item">
+                <li v-if="!auth()" class="nav-item">
                   <a href="#" data-toggle="modal" data-target="#signupModal" class="nav-link"> SIGN UP </a>
                 </li>
-                <li v-if="this.$route.path != '/' &&  this.$route.name.indexOf('Admin') == -1" class="nav-item">
+                <li v-if="auth() && !master()" class="nav-item">
                   <router-link :to="{ name: 'Transaction' }" class="nav-link"><i class="fa fa-money" aria-hidden="true"></i> MY MONEY </router-link>
                 </li>
-                <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
+                <li v-if="auth() && !master()" class="nav-item">
                   <router-link :to="{ name: 'Account' }" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> ABOUT ME </router-link>
                 </li>
-                <li v-if="this.$route.path != '/' && this.$route.name.indexOf('Admin') == -1" class="nav-item">
+                <li v-if="auth() && !master()" class="nav-item">
                   <router-link :to="{ name: 'Budget' }" class="nav-link"><i class="fa fa-question-circle" aria-hidden="true"></i> BUDGET & GOALS </router-link>
                 </li>
-                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
+                <li v-if="auth() && master()" class="nav-item">
                   <router-link :to="{ name: 'AdminAccounts' }" class="nav-link"> ACCOUNTS </router-link>
                 </li>
-                <li v-if="this.$route.name.indexOf('Admin') > -1" class="nav-item">
+                <li v-if="auth() && master()" class="nav-item">
                   <router-link :to="{ name: 'AdminSettings' }" class="nav-link"> SETTINGS </router-link>
                 </li>
-                <li v-if="this.$route.path != '/'" class="nav-item">
+                <li v-if="auth()" class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link" onclick="sessionStorage.clear();"> LOGOUT </router-link>
                 </li>
               </ul>
@@ -67,6 +67,13 @@
 <script>
 export default {
   name: 'app',
-};
-
+  methods: {
+    auth() {
+      return (sessionStorage.getItem('sb.acctID')) ? true : false;
+    },
+    master(){
+      return (sessionStorage.getItem('sb.master') == 'true') ? true : false;
+    }
+  },
+}
 </script>

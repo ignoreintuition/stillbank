@@ -6,37 +6,20 @@
         <p> From your account details you can see important information that pertains to your account.  This includes
         any cyclical (repeated) transactions such as allowances or debt payments.  You can also see a summary of how much money
         you have in your account which is called your Balance.</p>
-        <table class="table">
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Name </td>
-            <td> {{ data.name }} </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td> Allowance </td>
-            <td> {{ data.allowance }} </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td> Starting Balance </td>
-            <td> {{ data.startBal }} </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td> Balance </td>
-            <td> {{ data.total }} </td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            <td> Password </td>
-            <td> ******** </td>
-          </tr>
-        </table>
+        <form @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <label for="name" class="form-control-label"> Name </label>
+            <input id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label"> Password </label>
+            <input id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+          </div>
+          <div class="form-group">
+            <label for="total" class="form-control-label"> Total </label>
+            <input readonly id="total" class="col-6 form-control" required :value="formatCurrency(data.total)">  </input>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -57,6 +40,12 @@ export default {
         startBal: null,
       },
     };
+  },
+  methods: {
+    formatCurrency(value) {
+      const val = (value / 1).toFixed(2);
+      return `$${val.toString()}`;
+    },
   },
   created() {
     this.data.acctID = sessionStorage.getItem('sb.acctID');
