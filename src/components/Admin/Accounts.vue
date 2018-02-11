@@ -12,7 +12,7 @@
         <thead>
           <tr>
             <th> Delete </th>
-            <th> Edit </th>
+            <th> Account </th>
             <th> Ledger </th>
             <th> Name </th>
           </tr>
@@ -23,7 +23,7 @@
               <a href="javascript:;" @click="deleteAcct(a)"> <i class="fa fa-trash" aria-hidden="true"></i> </a>
             </td>
             <td class="t-button">
-            <router-link :to="{ name: 'AdminAccountDetails', params: { id: a.accountID }}" > <i class="fa fa-pencil" aria-hidden="true"></i> </router-link>
+            <router-link :to="{ name: 'AdminAccountDetails', params: { id: a.accountID }}" > <i class="fa fa-user" aria-hidden="true"></i> </router-link>
             </td>
             <td class="t-button">
               <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" > <i class="fa fa-list" aria-hidden="true"></i> </router-link>
@@ -50,6 +50,7 @@
               </button>
           </div>
           <div class="modal-body">
+          <div id="newUserMessage"> </div>
             <div class="form-group">
               <label for="newAcctNm" class="form-control-label"> Name </label>
               <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.name required> </input>
@@ -60,11 +61,11 @@
             </div>
             <div class="form-group">
               <label for="newLogin" class="form-control-label"> Login </label>
-              <input id="newTransDate" type="text" class="col-12 form-control" v-model=newAcct.login required> </input>
+              <input id="newTransLogin" type="text" class="col-12 form-control" v-model=newAcct.login required> </input>
             </div>
             <div class="form-group">
               <label for="newPassword" class="form-control-label"> Password </label>
-              <input id="newTransDate" type="password" class="col-12 form-control" v-model=newAcct.password required> </input>
+              <input id="newTransPassword" type="password" class="col-12 form-control" v-model=newAcct.password required> </input>
             </div>
           </div>
           <div class="modal-footer">
@@ -151,18 +152,22 @@ export default {
       const url = `${process.env.REST_API}/addAcct`;
       $.post(url, this.newAcct)
       .done(d => {
-        this.newAcct.accountID = d;
-        this.data.accts.push(this.newAcct);
-        this.newAcct = {
-          name: null,
-          masterAccountID: null,
-          startBal: null,
-          login: null,
-          password: null,
-          total: null,
-        };
+        if (d.error)
+          document.getElementById("newUserMessage").innerHTML = "<p>Login Already Exists</p>";
+        else {
+          this.newAcct.accountID = d;
+          this.data.accts.push(this.newAcct);
+          this.newAcct = {
+            name: null,
+            masterAccountID: null,
+            startBal: null,
+            login: null,
+            password: null,
+            total: null,
+          };
+          $('#newAcctModal').modal('hide');
+        }
       });
-      $('#newAcctModal').modal('hide');
     },
     formatCurrency(value) {
       const val = (value / 1).toFixed(2);

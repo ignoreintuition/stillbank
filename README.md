@@ -32,9 +32,9 @@ npm test
 ## To-Do
 * Edit Account
 * Add budgets & goals
-* hash password
 * new user registration
-* verify unique ID
+* disable login button while authenticating
+* delete transaction immediately after enter
 
 ## bugs
 * Update routes to show show login when session expires / hide login when session is active
