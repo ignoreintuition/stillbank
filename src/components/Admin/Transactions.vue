@@ -187,11 +187,13 @@ export default {
   },
   methods: {
     handleSubmit(evt) {
+      const self = this;
       evt.preventDefault();
       this.newTrans.accountID = this.$route.params.id;
       const url = `${process.env.REST_API}/`;
-      $.post(url, this.newTrans);
-      this.data.transactions.push(this.newTrans);
+      $.post(url, this.newTrans, function(d){
+        self.data.transactions.push(d);
+      });
       $('#newTransModal').modal('hide');
       this.newTrans = {
         _id: null,

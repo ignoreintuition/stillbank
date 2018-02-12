@@ -55,7 +55,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary"> Submit </button>
+              <button id="loginButton" type="submit" class="btn btn-primary"> Submit </button>
             </div>
           </form>
         </div>
@@ -101,6 +101,7 @@ export default {
   },
   methods: {
     handleLogin(evt) {
+      document.getElementById("loginButton").disabled = true;
       evt.preventDefault();
       const url = `${process.env.REST_API}/login`;
       $.post(url, $("#loginForm").serialize(), function(d){
@@ -116,7 +117,9 @@ export default {
           }
           $('#loginModal').modal('hide');
         } else
-          document.getElementById("loginMessage").innerHTML = "<p>Login Failed</p>" });
+          document.getElementById("loginMessage").innerHTML = "<p>Login Failed</p>";
+        document.getElementById("loginButton").disabled = false;
+        });
     },
   },
 };

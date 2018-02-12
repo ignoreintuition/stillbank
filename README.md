@@ -33,8 +33,7 @@ npm test
 * Edit Account
 * Add budgets & goals
 * new user registration
-* disable login button while authenticating
-* delete transaction immediately after enter
 
 ## bugs
 * Update routes to show show login when session expires / hide login when session is active
+* on account creation total shows as NAN
