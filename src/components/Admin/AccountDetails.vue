@@ -10,11 +10,11 @@
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label for="name" class="form-control-label"> Name </label>
-            <input id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
+            <input readonly id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
           </div>
           <div class="form-group">
             <label for="password" class="form-control-label"> Password </label>
-            <input id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+            <input readonly id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
           </div>
           <div class="form-group">
             <label for="total" class="form-control-label"> Total </label>

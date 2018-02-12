@@ -9,11 +9,14 @@
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label for="name" class="form-control-label"> Name </label>
-            <input id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
+            <input readonly id="name" type="text" class="col-6 form-control" v-model=data.name required> </input>
           </div>
           <div class="form-group">
             <label for="password" class="form-control-label"> Password </label>
-            <input id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+            <input id="password" type="password" class="col-6 form-control" required> </input>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary"> Update </button>
           </div>
         </form>
       </div>
@@ -43,6 +46,14 @@ export default {
     $.get(url, (d) => {
       this.data = d;
     });
+  },
+  methods: {
+    handleSubmit(evt) {
+      evt.preventDefault();
+      const url = `${process.env.REST_API}/updatePassword/${this.data.accountID}`;
+      const pw = (document.getElementById("password").value);
+      $.post(url, {'password': pw});
+    },
   },
 };
 </script>

@@ -30,10 +30,14 @@ npm test
 ```
 
 ## To-Do
-* Edit Account
-* Add budgets & goals
 * new user registration
+* Update sub-account passwordHash
+* additional password reset validation
 
 ## bugs
 * Update routes to show show login when session expires / hide login when session is active
 * on account creation total shows as NAN
+
+## Roadmap
+* Add budgets & goals
+* Add automatic transactions

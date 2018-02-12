@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav">
-                <li v-if="this.$route.path == '/'" class="nav-item">
+                <li class="nav-item">
                   <router-link :to="{ name: 'Home' }" class="nav-link"> HOME </router-link>
                 </li>
                 <li v-if="!auth()" class="nav-item">
