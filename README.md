@@ -31,12 +31,11 @@ npm test
 
 ## To-Do
 * new user registration
-* Update sub-account passwordHash
 * additional password reset validation
 
 ## bugs
-* Update routes to show show login when session expires / hide login when session is active
-* on account creation total shows as NAN
+* On account creation total shows as NAN
+* Forms misaligned on Mobile
 
 ## Roadmap
 * Add budgets & goals

@@ -13,11 +13,14 @@
           </div>
           <div class="form-group">
             <label for="password" class="form-control-label"> Password </label>
-            <input readonly id="password" type="password" class="col-6 form-control" v-model=data.password required> </input>
+            <input id="password" type="password" class="col-6 form-control" required> </input>
           </div>
           <div class="form-group">
             <label for="total" class="form-control-label"> Total </label>
             <input readonly id="total" class="col-6 form-control" required :value="formatCurrency(data.total)">  </input>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary"> Update </button>
           </div>
         </form>
       </div>
@@ -45,6 +48,12 @@ export default {
     formatCurrency(value) {
       const val = (value / 1).toFixed(2);
       return `$${val.toString()}`;
+    },
+    handleSubmit(evt) {
+      evt.preventDefault();
+      const url = `${process.env.REST_API}/updatePassword/${this.data.accountID}`;
+      const pw = (document.getElementById("password").value);
+      $.post(url, {'password': pw});
     },
   },
   created() {

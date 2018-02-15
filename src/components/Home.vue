@@ -11,7 +11,8 @@
       A still bank is a small bank with a slot in the top usually made of porcelain or ceramic.  You probably know them as
       piggy banks as that is the iconic staple of still banks historically.  These types of banks had often been used
       by children for storing their money which is why we have chosen it as the name of our program.  Think of StillBank
-      as your modern "Piggy Bank" where parents deposit your allowance and track your spending.
+      as your modern "Piggy Bank" where parents deposit your allowance and track your spending.</p>
+      <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signupModal" > Get Started Today</button></p>
       <h2> Kids </h2>
       <p> Managing your money can be scary.  At the same time it can be a very rewarding experience.
       As an adult you always need to know how much money you have in your account.  As a kid it is the best time
@@ -30,6 +31,7 @@
       look at their spending by category and set up short and long term goals.
       </p>
       <p> Most of all: make sure they are having FUN </p>
+      <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signupModal" > Sign Up </button></p>
     </div>
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,8 +76,7 @@
               </button>
           </div>
             <div class="modal-body">
-              Stillbank is currently in closed beta.  If you would like to be included as a beta tester
-              email <a href="mailto:brian@resurgencewebdesign.com">brian@resurgencewebdesign.com</a>.
+              Stillbank is now in open beta.  If you would like to sign up please contact Brian: <a href="mailto:brian@resurgencewebdesign.com?subject=Stillbank%20Open%20Beta">brian@resurgencewebdesign.com</a>.
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
