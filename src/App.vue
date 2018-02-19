@@ -2,14 +2,14 @@
   <div id="content" class="container">
       <div id="app">
         <div id="header" class="row">
-          <div class="col-12">
+          <div class="col">
             <div class="row">
-              <div class="col-md-2 col-4">
+              <div class="col-2">
                 <img id="logo" src="./assets/img/logo.png">
               </div>
-              <div class="col-md-10 col-8">
-                <H1> StillBank </H1>
-                <H2> Money Management for Kids </H2>
+              <div class="col-10">
+                <H1 id="heading"> StillBank </H1>
+                <H2 id="subHeading"> Money Management for Kids </H2>
               </div>
             </div>
           </div>
@@ -60,6 +60,9 @@
         </div>
         <div class="col-6 right">
           <p> Logo via <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a></p>
+        </div>
+        <div class="col-6 left">
+          <p> Contact Us: <a href="mailto:brian@resurgencewebdesign.com">brian@resurgencewebdesign.com</a></p>
         </div>
       </div>
     </div></template>

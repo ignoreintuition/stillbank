@@ -30,7 +30,6 @@ npm test
 ```
 
 ## To-Do
-* new user registration
 * additional password reset validation
 
 ## bugs
