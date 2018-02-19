@@ -68,7 +68,7 @@
     <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form id = "signupForm">
+          <form id = "signupForm" @submit.prevent="handleSubmit">
             <div class="modal-header">
               <h2 class="modal-title"> Signup </h2>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,10 +76,27 @@
               </button>
           </div>
             <div class="modal-body">
-              Stillbank is now in open beta.  If you would like to sign up please contact Brian: <a href="mailto:brian@resurgencewebdesign.com?subject=Stillbank%20Open%20Beta">brian@resurgencewebdesign.com</a>.
+              <div id="newUserMessage"> </div>
+              <div class="form-group">
+                <label for="newName" class="form-control-label"> Name </label>
+                <input id="newName" name="username" class="col-12 form-control" v-model=newAcct.name required> </input>
+              </div>
+              <div class="form-group">
+                <label for="newUsername" class="form-control-label"> User ID </label>
+                <input id="newUsername" name="username" class="col-12 form-control" v-model=newAcct.login required> </input>
+              </div>
+              <div class="form-group">
+                <label for="newEmail" class="form-control-label"> Email Address </label>
+                <input id="newEmail" name="email" class="col-12 form-control"  v-model=newAcct.email required> </input>
+              </div>
+              <div class="form-group">
+                <label for="newPassword" class="form-control-label"> Password </label>
+                <input id="newPassword" name="password" class="col-12 form-control"  v-model=newAcct.password required> </input>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="submitButton" type="submit" class="btn btn-primary"> Submit </button>
               </div>
           </form>
         </div>
@@ -97,6 +114,13 @@ export default {
     return {
       data: {
         auth: 1,
+      },
+      newAcct: {
+        name: null,
+        master: true,
+        login: null,
+        password: null,
+        email: null,
       },
     };
   },
@@ -121,6 +145,26 @@ export default {
           document.getElementById("loginMessage").innerHTML = "<p>Login Failed</p>";
         document.getElementById("loginButton").disabled = false;
         });
+    },
+    handleSubmit(evt) {
+      evt.preventDefault();
+      const url = `${process.env.REST_API}/addMasterAcct`;
+      $.post(url, this.newAcct)
+      .done(d => {
+        if (d.error)
+          document.getElementById("newUserMessage").innerHTML = "<p>Login Already Exists</p>";
+        else {
+          this.newAcct = {
+            name: null,
+            login: null,
+            password: null,
+            email: null,
+          };
+          $('#signupModal').modal('hide');
+          $('#loginModal').modal('show');
+          document.getElementById("loginMessage").innerHTML = "<p>Login in to get started</p>";
+        }
+      });
     },
   },
 };

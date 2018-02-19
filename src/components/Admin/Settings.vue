@@ -6,6 +6,7 @@
           <li class="breadcrumb-item active">Settings</li>
         </ol>
         <h2> Account Settings </h2>
+        <div id="postMessage"> </div>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label for="name" class="form-control-label"> Name </label>
@@ -52,7 +53,9 @@ export default {
       evt.preventDefault();
       const url = `${process.env.REST_API}/updatePassword/${this.data.accountID}`;
       const pw = (document.getElementById("password").value);
-      $.post(url, {'password': pw});
+      $.post(url, {'password': pw}, function(d){
+        document.getElementById("postMessage").innerHTML = "<p>Password Updated</p>";
+      });
     },
   },
 };
