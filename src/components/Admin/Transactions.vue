@@ -195,14 +195,6 @@ export default {
         self.data.transactions.push(d);
       });
       $('#newTransModal').modal('hide');
-      this.newTrans = {
-        _id: null,
-        date: null,
-        type: null,
-        amount: null,
-        category: null,
-        comment: null,
-      };
     },
     handleUpdate(evt) {
       evt.preventDefault();
