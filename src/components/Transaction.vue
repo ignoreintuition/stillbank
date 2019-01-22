@@ -98,8 +98,8 @@ export default {
       data: {
         acctID: null,
         transactions: [],
-        startDate: '2018-01-01',
-        endDate: '2018-12-31',
+        startDate: '2019-01-01',
+        endDate: '2019-12-31',
       },
       updateTrans: {
         _id: null,

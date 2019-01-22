@@ -4,9 +4,9 @@
     <div class="container">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><router-link :to="{ name: 'AdminAccounts' }" > Accounts </router-link></li>
-      <li class="breadcrumb-item active">Transactions</li>
+      <li class="breadcrumb-item active">Transactions / {{data.acct.name}} </li>
     </ol>
-    <h2> Manage Your Kid's Ledger </h2>
+    <h2> Manage Ledger </h2>
       <p> Diligence is critical to keeping your kids on track for saving money.  By regularly updating the transactions in their account they
       can get immediate feedback on where their money is going.  The better the records you keep the better they will understand what it means
       to save money.  Think about it as you are the banker and your kids are the customer. </p>
@@ -153,8 +153,9 @@ export default {
     return {
       data: {
         transactions: [],
-        startDate: '2018-01-01',
-        endDate: '2018-12-31',
+        startDate: '2019-01-01',
+        endDate: '2019-12-31',
+        acct: {name: null},
       },
       newTrans: {
         date: null,
@@ -177,6 +178,10 @@ export default {
     const url = `${process.env.REST_API}/getTrans/${this.$route.params.id}`;
     $.get(url, (d) => {
       this.data.transactions = d;
+    });
+    const acctUrl = `${process.env.REST_API}/acct/${this.$route.params.id}`;
+    $.get(acctUrl, (d) => {
+      this.data.acct = d;
     });
   },
   computed: {
