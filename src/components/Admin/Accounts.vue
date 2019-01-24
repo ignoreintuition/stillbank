@@ -15,6 +15,7 @@
             <th> Account </th>
             <th> Ledger </th>
             <th> Name </th>
+            <th> Account Total </th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +30,8 @@
               <router-link :to="{ name: 'AdminTransactions', params: { id: a.accountID }}" > <i class="fa fa-list" aria-hidden="true"></i> </router-link>
             </td>
             <td> {{ a.name }} </td>
+            <td> {{ formatCurrency(a.total) }} </td>
+
           </tr>
         </tbody>
       </table>
