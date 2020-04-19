@@ -18,7 +18,7 @@
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0-beta.3",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.2.1",
+    "jquery": "^3.4.0",
     "mime-db": "^1.37.0",
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
